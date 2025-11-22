@@ -10,7 +10,7 @@ Moderní webová aplikace s recepty vytvořená pomocí Vue 3, TypeScript a Vite
 git clone https://github.com/Tomajto/kucharka.git
 ```
 
-### Instalace závislostí
+### Instalace závislostí (je nutný mít node.js nainstalovaný)
 
 ```sh
 npm install

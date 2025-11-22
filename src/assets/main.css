@@ -284,7 +284,7 @@ body {
 }
 
 .recipe-card:hover .recipe-image img {
-  transform: scale(1.1);
+  transform: none;
 }
 
 .recipe-info {
@@ -526,7 +526,7 @@ body {
 }
 
 .content-row .image-wrapper:hover img {
-  transform: scale(1.05);
+  transform: none;
 }
 
 .text-content {
@@ -731,7 +731,7 @@ body {
 }
 
 .article-card:hover .article-image img {
-  transform: scale(1.05);
+  transform: none;
 }
 
 .article-badge {

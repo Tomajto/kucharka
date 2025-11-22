@@ -8,7 +8,10 @@ const currentYear = new Date().getFullYear()
     <div class="footer-content">
       <div class="footer-section">
         <h3 class="footer-title">Kuchařka</h3>
-        <p class="footer-text">Vaše inspirace pro každodenní vaření</p>
+        <p class="footer-text">
+          Vaše inspirace pro vytváření kulinářských zážitků. Recepty pro úspěšné lidi, kteří si váží
+          kvality a chuti.
+        </p>
       </div>
 
       <div class="footer-section">
@@ -16,7 +19,8 @@ const currentYear = new Date().getFullYear()
         <ul class="footer-links">
           <li><a href="/">Domů</a></li>
           <li><a href="/recepty">Recepty</a></li>
-          <li><a href="#tipy">Tipy</a></li>
+          <li><a href="/o-nas">O nás</a></li>
+          <li><a href="/tipy">Tipy</a></li>
         </ul>
       </div>
 
@@ -24,14 +28,14 @@ const currentYear = new Date().getFullYear()
         <h4 class="footer-heading">Kontakt</h4>
         <ul class="footer-links">
           <li><a href="mailto:info@kucharka.cz">info@kucharka.cz</a></li>
-          <li><a href="tel:+420123456789">+420 123 456 789</a></li>
+          <li><a href="tel:+420123456789">+420 777 777 777</a></li>
         </ul>
       </div>
 
       <div class="footer-section">
         <h4 class="footer-heading">Sledujte nás</h4>
         <ul class="footer-links">
-          <li><a href="#facebook">Facebook</a></li>
+          <li><a href="#tiktok">TikTok</a></li>
           <li><a href="#instagram">Instagram</a></li>
           <li><a href="#youtube">YouTube</a></li>
         </ul>
@@ -39,7 +43,7 @@ const currentYear = new Date().getFullYear()
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; {{ currentYear }} Kuchařka. Všechna práva vyhrazena.</p>
+      <p>&copy; {{ currentYear }} Vaření s chutí. Všechna práva vyhrazena.</p>
     </div>
   </footer>
 </template>
