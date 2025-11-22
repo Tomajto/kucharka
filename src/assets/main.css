@@ -302,10 +302,18 @@ body {
   display: flex;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  align-items: center;
 }
 
 .meta-item {
   color: #ccc;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.meta-item svg {
   font-size: 0.9rem;
 }
 
