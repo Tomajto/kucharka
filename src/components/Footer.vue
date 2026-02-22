@@ -27,17 +27,7 @@ const currentYear = new Date().getFullYear()
       <div class="footer-section">
         <h4 class="footer-heading">Kontakt</h4>
         <ul class="footer-links">
-          <li><a href="mailto:info@kucharka.cz">info@kucharka.cz</a></li>
-          <li><a href="tel:+420123456789">+420 777 777 777</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h4 class="footer-heading">Sledujte nás</h4>
-        <ul class="footer-links">
-          <li><a href="#tiktok">TikTok</a></li>
-          <li><a href="#instagram">Instagram</a></li>
-          <li><a href="#youtube">YouTube</a></li>
+          <li><a href="mailto:info@kucharka.cz">info@kucharka.org</a></li>
         </ul>
       </div>
     </div>

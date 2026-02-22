@@ -27,8 +27,15 @@
         </div>
 
         <!-- Main image -->
-        <div v-if="recipe.image_url" class="main-image">
-          <img :src="recipe.image_url" :alt="recipe.title" />
+        <div v-if="recipe.images && recipe.images.length > 0" class="additional-images">
+          <div class="image-grid">
+            <img
+              v-for="image in recipe.images"
+              :key="image.id"
+              :src="image.image_url"
+              :alt="recipe.title"
+            />
+          </div>
         </div>
 
         <!-- Content grid -->
@@ -56,19 +63,6 @@
               </li>
             </ol>
             <p v-else class="no-data">Postup není k dispozici</p>
-          </div>
-        </div>
-
-        <!-- Additional images -->
-        <div v-if="recipe.images && recipe.images.length > 0" class="additional-images">
-          <h2>Další obrázky</h2>
-          <div class="image-grid">
-            <img
-              v-for="image in recipe.images"
-              :key="image.id"
-              :src="image.image_url"
-              :alt="recipe.title"
-            />
           </div>
         </div>
       </div>
@@ -338,12 +332,6 @@ onMounted(() => {
   transition: all 0.3s ease;
 }
 
-.section:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-5px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-}
 
 .section h2 {
   font-size: 2rem;
@@ -393,7 +381,7 @@ onMounted(() => {
 
 .steps-list li {
   color: #ccc;
-  padding: 1.5rem 0;
+  padding: 1.5rem 1.5rem;
   line-height: 1.8;
   font-size: 1.1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -402,8 +390,8 @@ onMounted(() => {
 }
 
 .steps-list li:hover {
-  color: #fff;
-  padding-left: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem
 }
 
 .steps-list li:last-child {
@@ -424,7 +412,8 @@ onMounted(() => {
 }
 
 .additional-images {
-  margin-top: 4rem;
+  margin: 3rem auto;
+  max-width: 900px;
 }
 
 .additional-images h2 {
@@ -436,26 +425,25 @@ onMounted(() => {
 }
 
 .image-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 2rem;
 }
 
 .image-grid img {
   width: 100%;
-  height: 280px;
+  max-width: 800px;
+  height: auto;
+  min-height: 400px;
   object-fit: cover;
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-}
-
-.image-grid img:hover {
-  transform: scale(1.05) translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  border-color: var(--accent-color);
+  margin: 2rem auto;
 }
 
 @media (max-width: 768px) {

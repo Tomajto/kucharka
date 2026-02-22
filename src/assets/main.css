@@ -263,6 +263,9 @@ body {
     transform 0.3s,
     box-shadow 0.3s;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .recipe-card:hover {
@@ -289,6 +292,9 @@ body {
 
 .recipe-info {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .recipe-name {
@@ -330,10 +336,10 @@ body {
   transition:
     transform 0.3s,
     box-shadow 0.3s;
+  margin-top: auto;
 }
 
 .view-recipe-btn:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 

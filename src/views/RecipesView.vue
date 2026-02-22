@@ -69,12 +69,14 @@ const fetchRecipes = async () => {
 }
 
 const filteredRecipes = computed(() => {
-  return recipes.value.filter((recipe) => {
-    const matchesSearch = recipe.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-    const matchesCategory =
-      selectedCategory.value === 'all' || recipe.category === selectedCategory.value
-    return matchesSearch && matchesCategory
-  })
+  return recipes.value
+    .filter((recipe) => {
+      const matchesSearch = recipe.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+      const matchesCategory =
+        selectedCategory.value === 'all' || recipe.category === selectedCategory.value
+      return matchesSearch && matchesCategory
+    })
+    .sort((a, b) => a.title.localeCompare(b.title, 'cs'))
 })
 
 const selectCategory = (categoryId: string) => {

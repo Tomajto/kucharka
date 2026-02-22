@@ -9,35 +9,20 @@ import Footer from '../components/Footer.vue'
   <div class="home">
     <Navbar />
 
-    <div class="background">
-      <div class="hero">
+    <main class="background">
+      <section class="hero" aria-label="Úvodní sekce">
         <div class="hero-content">
           <h1 class="hero-title">Vítejte v naší kuchařce!</h1>
           <p class="hero-text">
             Hledáte inspiraci pro každodenní vaření? U nás najdete jednoduché recepty plné chuti,
             které zvládne úplně každý.
           </p>
-          <a href="/recepty">
-            <button class="cta-button">Prohlédnout recepty</button>
+          <a href="/recepty" class="cta-button">
+            Prohlédnout recepty
           </a>
         </div>
-
-        <div class="social-links">
-          <p class="social-text">Sledujte nás na sociálních sítích</p>
-          <div class="social-icons">
-            <a href="https://www.tiktok.com" target="_blank" class="social-link tiktok">
-              <FontAwesomeIcon :icon="faTiktok" />
-            </a>
-            <a href="https://www.instagram.com" target="_blank" class="social-link instagram">
-              <FontAwesomeIcon :icon="faInstagram" />
-            </a>
-            <a href="https://www.youtube.com" target="_blank" class="social-link youtube">
-              <FontAwesomeIcon :icon="faYoutube" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
 
     <Footer />
   </div>
