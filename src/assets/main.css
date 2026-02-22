@@ -78,6 +78,7 @@ body {
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .cta-button:hover {
@@ -695,14 +696,12 @@ body {
 .filter-btn:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
 }
 
 .filter-btn.active {
   background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-color-hover) 100%);
   border-color: var(--accent-color);
   box-shadow: 0 8px 32px rgba(212, 136, 111, 0.3);
-  transform: translateY(-2px);
 }
 
 .articles-grid {
