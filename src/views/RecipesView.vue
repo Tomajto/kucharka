@@ -21,7 +21,6 @@ interface Recipe {
   description: string | null
   category: string | null
   difficulty: string | null
-  prep_time: number | null
   duration_minutes: number | null
   image_url: string | null
   images?: RecipeImage[]

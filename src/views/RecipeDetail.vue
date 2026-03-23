@@ -14,8 +14,8 @@
           <p v-if="recipe.description" class="description">{{ recipe.description }}</p>
 
           <div class="recipe-meta">
-            <span v-if="recipe.prep_time" class="meta-item">
-              <strong>Čas:</strong> {{ recipe.prep_time }} min
+            <span v-if="recipe.duration_minutes !== null && recipe.duration_minutes !== undefined" class="meta-item">
+              <strong>Čas:</strong> {{ recipe.duration_minutes }} min
             </span>
             <span v-if="recipe.servings !== null && recipe.servings !== undefined" class="meta-item">
               <strong>Pro kolik:</strong> {{ recipe.servings }} {{ getServingsLabel(recipe.servings) }}
@@ -109,7 +109,7 @@ interface Recipe {
   description: string | null
   category: string | null
   difficulty: string | null
-  prep_time: number | null
+  duration_minutes: number | null
   servings: number | null
   image_url: string | null
   created_at: string
