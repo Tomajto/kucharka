@@ -17,24 +17,28 @@
             <span v-if="recipe.prep_time" class="meta-item">
               <strong>Čas:</strong> {{ recipe.prep_time }} min
             </span>
+            <span v-if="recipe.servings !== null && recipe.servings !== undefined" class="meta-item">
+              <strong>Pro kolik:</strong> {{ recipe.servings }} {{ getServingsLabel(recipe.servings) }}
+            </span>
             <span v-if="recipe.difficulty" class="meta-item">
               <strong>Náročnost:</strong> {{ recipe.difficulty }}
             </span>
             <span v-if="recipe.category" class="meta-item">
               <strong>Kategorie:</strong> {{ recipe.category }}
             </span>
+            <div v-if="recipe.servings !== null && recipe.servings !== undefined" class="servings-adjuster">
+              <label for="desired-servings">Chci připravit pro:</label>
+              <input id="desired-servings" v-model.number="desiredServings" type="number" min="1" step="1" />
+              <span>{{ desiredServings || recipe.servings }} {{ getServingsLabel(desiredServings || recipe.servings)
+                }}</span>
+            </div>
           </div>
         </div>
 
         <!-- Main image -->
         <div v-if="recipe.images && recipe.images.length > 0" class="additional-images">
           <div class="image-grid">
-            <img
-              v-for="image in recipe.images"
-              :key="image.id"
-              :src="image.image_url"
-              :alt="recipe.title"
-            />
+            <img v-for="image in recipe.images" :key="image.id" :src="image.image_url" :alt="recipe.title" />
           </div>
         </div>
 
@@ -47,7 +51,7 @@
               <li v-for="ingredient in recipe.ingredients" :key="ingredient.id">
                 <span class="ingredient-name">{{ ingredient.name }}</span>
                 <span v-if="ingredient.amount" class="ingredient-amount">
-                  {{ ingredient.amount }}
+                  {{ getDisplayedAmount(ingredient.amount) }}
                 </span>
               </li>
             </ul>
@@ -106,6 +110,7 @@ interface Recipe {
   category: string | null
   difficulty: string | null
   prep_time: number | null
+  servings: number | null
   image_url: string | null
   created_at: string
   ingredients?: Ingredient[]
@@ -119,6 +124,65 @@ const router = useRouter()
 const recipe = ref<Recipe | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
+const desiredServings = ref<number | null>(null)
+
+const getServingsLabel = (servings: number) => {
+  const absServings = Math.abs(servings)
+  const lastTwo = absServings % 100
+  const lastOne = absServings % 10
+
+  if (lastTwo >= 11 && lastTwo <= 14) {
+    return 'osob'
+  }
+
+  if (lastOne === 1) {
+    return 'osobu'
+  }
+
+  if (lastOne >= 2 && lastOne <= 4) {
+    return 'osoby'
+  }
+
+  return 'osob'
+}
+
+const formatScaledNumber = (value: number) => {
+  if (Number.isInteger(value)) {
+    return value.toString()
+  }
+
+  return value.toFixed(2).replace(/\.?0+$/, '').replace('.', ',')
+}
+
+const scaleAmountText = (amount: string, scaleFactor: number) => {
+  return amount.replace(/\d+(?:[.,]\d+)?/g, (match) => {
+    const numericValue = Number.parseFloat(match.replace(',', '.'))
+
+    if (Number.isNaN(numericValue)) {
+      return match
+    }
+
+    return formatScaledNumber(numericValue * scaleFactor)
+  })
+}
+
+const getDisplayedAmount = (amount: string | null) => {
+  if (!amount) {
+    return amount
+  }
+
+  if (!recipe.value?.servings || !desiredServings.value || desiredServings.value <= 0) {
+    return amount
+  }
+
+  const scaleFactor = desiredServings.value / recipe.value.servings
+
+  if (scaleFactor === 1) {
+    return amount
+  }
+
+  return scaleAmountText(amount, scaleFactor)
+}
 
 const fetchRecipe = async () => {
   try {
@@ -161,6 +225,8 @@ const fetchRecipe = async () => {
       steps: stepsData || [],
       images: imagesData || [],
     }
+
+    desiredServings.value = recipeData.servings
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Chyba při načítání receptu'
     console.error('Chyba při načítání receptu:', err)
@@ -193,14 +259,12 @@ onMounted(() => {
   right: 0;
   height: 100vh;
   background:
-    linear-gradient(
-      to bottom,
+    linear-gradient(to bottom,
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 0) 40%,
       rgba(34, 33, 32, 0.3) 60%,
       rgba(34, 33, 32, 0.6) 80%,
-      #222120 100%
-    ),
+      #222120 100%),
     url('/black-textured-background.jpg') top center / cover no-repeat;
   z-index: 0;
   pointer-events: none;
@@ -273,10 +337,10 @@ onMounted(() => {
 
 .recipe-meta {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -284,6 +348,35 @@ onMounted(() => {
   border: 1px solid rgba(255, 255, 255, 0.18);
   max-width: 600px;
   margin: 0 auto;
+}
+
+.servings-adjuster {
+  margin: 1.5rem auto 0;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: #ccc;
+}
+
+.servings-adjuster label {
+  font-weight: 600;
+}
+
+.servings-adjuster input {
+  width: 90px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+}
+
+.servings-adjuster input:focus {
+  outline: none;
+  border-color: var(--accent-color);
 }
 
 .meta-item {
@@ -463,6 +556,11 @@ onMounted(() => {
   .recipe-meta {
     flex-direction: column;
     gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .servings-adjuster {
+    flex-direction: column;
     align-items: flex-start;
   }
 
